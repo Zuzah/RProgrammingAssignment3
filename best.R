@@ -5,7 +5,40 @@
 #30-day mortality for the speciﬁed outcome in that state
 
 
-best <- function(state, outcome) { ## Read outcome data
-## Check that state and outcome are valid
+best <- function(state, outcome) {
+
+    #vars
+    data <- character()
+    options <- character()
+
+    ## Read outcome-of-care-measures.csv, assign to data
+    data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+    data[, 11] <- suppressWarnings(as.numeric(data[, 11]))
+
+    #define list of possible options for heart disease.
+    options <- c("heart attack", "heart failure", "pneumonia")
+
+    ## Check that state and outcome are valid
+
+    #if parm1 state value is not found in the data
+    if(!state %in% data$State)
+    {
+      #print 'invalid state' error
+      stop("invalid state")
+    }
+
+    #else if parm2 outcome is not from valid list of heart disease options
+    else if (!(outcome %in% options))
+    {
+      #print 'invalid outcome' error
+      stop("invalid outcome")
+    }
+
+    else
+    {
+      print("Passed")
+    }
+
+
 ## Return hospital name in that state with lowest 30-day death ## rate
 }
